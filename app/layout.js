@@ -1,13 +1,17 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Moon_Dance } from "next/font/google";
 import "./globals.css";
+import { ThemeProviderWrapper } from "@/components/ThemeProviderWrapper";
+import { ThemeToggle } from "./theme-toggle";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  weight: "400",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const moonDance = Moon_Dance({
+  weight: "400",
+  variable: "--font-moon-dance",
   subsets: ["latin"],
 });
 
@@ -20,9 +24,21 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${inter.variable} ${moonDance.variable} antialiased transition-all duration-1000`}
       >
-        {children}
+        <ThemeProviderWrapper
+          attribute="class"
+          enableSystem
+          defaultTheme="system"
+        >
+          <div className="flex justify-between m-0 py-4 dark:bg-stone-900 border-b text-center bg-white text-black dark:text-white">
+            <h3 className="text-4xl font-semibold ml-3">My AI Blog</h3>
+            <span className="pr-4">
+              <ThemeToggle />
+            </span>
+          </div>
+          {children}
+        </ThemeProviderWrapper>
       </body>
     </html>
   );
