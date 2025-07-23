@@ -2,6 +2,8 @@ import { Inter, Moon_Dance } from "next/font/google";
 import "./globals.css";
 import { ThemeProviderWrapper } from "@/components/ThemeProviderWrapper";
 import { ThemeToggle } from "./theme-toggle";
+import QueryProvider from "@/components/QueryProvider";
+import Link from "next/link";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -32,12 +34,15 @@ export default function RootLayout({ children }) {
           defaultTheme="system"
         >
           <div className="flex justify-between m-0 py-4 dark:bg-stone-900 border-b text-center bg-white text-black dark:text-white">
-            <h3 className="text-4xl font-semibold ml-3">My AI Blog</h3>
+            <Link href="/">
+              <h3 className="text-4xl font-semibold ml-3">My AI Blog</h3>
+            </Link>
             <span className="pr-4">
               <ThemeToggle />
             </span>
           </div>
-          {children}
+
+          <QueryProvider>{children}</QueryProvider>
         </ThemeProviderWrapper>
       </body>
     </html>
