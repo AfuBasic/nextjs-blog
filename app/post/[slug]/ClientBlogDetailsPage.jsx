@@ -1,7 +1,9 @@
 "use client";
+import { BlogPost } from "@/components/ui/blogpost";
 import { apiBaseUrl } from "@/utils/constants";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
+import Link from "next/link";
 import { useParams } from "next/navigation";
 import { FaCalendar, FaUser } from "react-icons/fa";
 import sanitizeHtml from "sanitize-html";
@@ -15,6 +17,29 @@ async function getBlogPost(slug) {
         "Bearer 3|3RQwOo6YVLoJpdb5lu1H7B8bEH7JL4YirvtGrIUkf2fed752",
     },
   });
+
+  if (!response.ok) {
+    const errorBody = await response.json().catch(() => ({})); // try to read error body
+    throw new Error(
+      errorBody.message || `HTTP error! status: ${response.status}`
+    );
+  }
+
+  return response.json();
+}
+
+async function getRelatedPosts(currentPostSlug) {
+  const response = await fetch(
+    `${apiBaseUrl}/related-posts/${currentPostSlug}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization:
+          "Bearer 3|3RQwOo6YVLoJpdb5lu1H7B8bEH7JL4YirvtGrIUkf2fed752",
+      },
+    }
+  );
 
   if (!response.ok) {
     const errorBody = await response.json().catch(() => ({})); // try to read error body
@@ -65,16 +90,28 @@ export default function ClientBlogDetails() {
       </div>
       <div className="border-b">
         <p
-          dangerouslySetInnerHTML={{ __html: data.data.content }}
+          dangerouslySetInnerHTML={{ __html: cleanHtml }}
           className="text-sm text-justify pt-5"
         ></p>
       </div>
       <div className="mt-8">
         <h3 className="text-2xl font-semibold">Read More Posts</h3>
+
         <div className="flex flex-col gap-4 md:grid md:grid-cols-3 mt-5">
-          <div className="card">1</div>
-          <div className="card">1</div>
-          <div className="card">1</div>
+          {data.data.related_posts.map((post) => {
+            return (
+              <Link href={`/post/${post.slug}`}>
+                <BlogPost
+                  postCategory={post.category_name}
+                  previewImage={post.preview_image_url}
+                  author={post.author}
+                  dated={post.post_date}
+                  title={post.title}
+                  excerpt={post.content}
+                />
+              </Link>
+            );
+          })}
         </div>
       </div>
     </div>
