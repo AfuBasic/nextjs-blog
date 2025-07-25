@@ -1,6 +1,8 @@
 import { apiBaseUrl } from "@/utils/constants";
 import ClientBlogDetails from "./ClientBlogDetailsPage";
 
+export const runtime = "edge";
+
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const response = await fetch(`${apiBaseUrl}/post/${slug}`, {
