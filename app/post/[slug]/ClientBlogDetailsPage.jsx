@@ -91,16 +91,16 @@ export default function ClientBlogDetails() {
       <div className="border-b">
         <p
           dangerouslySetInnerHTML={{ __html: cleanHtml }}
-          className="text-sm text-justify pt-5"
+          className="text-sm text-left md:text-justify pt-5 max-w-none prose"
         ></p>
       </div>
       <div className="mt-8">
         <h3 className="text-2xl font-semibold">Read More Posts</h3>
 
         <div className="flex flex-col gap-4 md:grid md:grid-cols-3 mt-5">
-          {data.data.related_posts.map((post) => {
+          {data.data.related_posts.map((post, key) => {
             return (
-              <Link href={`/post/${post.slug}`}>
+              <Link key={key} href={`/post/${post.slug}`}>
                 <BlogPost
                   postCategory={post.category_name}
                   previewImage={post.preview_image_url}
