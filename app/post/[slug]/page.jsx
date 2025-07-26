@@ -1,4 +1,4 @@
-import { apiBaseUrl } from "@/utils/constants";
+import { apiBaseUrl } from "@/lib/constants";
 import ClientBlogDetails from "./ClientBlogDetailsPage";
 
 export async function generateMetadata({ params }) {
@@ -7,8 +7,6 @@ export async function generateMetadata({ params }) {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
-      Authorization:
-        "Bearer 3|3RQwOo6YVLoJpdb5lu1H7B8bEH7JL4YirvtGrIUkf2fed752",
     },
     cache: "no-store",
   });

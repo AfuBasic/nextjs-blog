@@ -4,6 +4,7 @@ import { ThemeProviderWrapper } from "@/components/ThemeProviderWrapper";
 import { ThemeToggle } from "./theme-toggle";
 import QueryProvider from "@/components/QueryProvider";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -32,7 +33,10 @@ export default function RootLayout({ children }) {
             <Link href="/">
               <h3 className="text-4xl font-semibold ml-3">My AI Blog</h3>
             </Link>
-            <span className="pr-4">
+            <span className="pr-4 items-center flex gap-2">
+              <Link href="/post/categories">
+                <Button variant="outline">Categories</Button>
+              </Link>
               <ThemeToggle />
             </span>
           </div>
