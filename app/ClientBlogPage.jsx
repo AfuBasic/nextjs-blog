@@ -38,7 +38,8 @@ export default function ClientBlogPage() {
   const totalRecords = data?.pages[0].data.total;
 
   useEffect(() => {
-    const pc = data?.pages.length * 4;
+    const items_per_page = 6;
+    const pc = data?.pages.length * items_per_page;
     setPageCount(pc);
   }, [data]);
 
@@ -69,7 +70,7 @@ export default function ClientBlogPage() {
   );
 
   return (
-    <div className="max-w-dvw md:max-w-[1200px] mx-4 md:mx-10 xl:mx-auto my-8 flex flex-col lg:grid md:grid-cols-3 gap-5">
+    <div className="max-w-dvw md:max-w-[1200px] mx-4 md:mx-10 xl:mx-auto my-8 flex flex-col  gap-5">
       <div className="card self-start">
         <h3 className="text-black dark:text-white text-lg font-medium">
           About AI Blog
@@ -82,7 +83,7 @@ export default function ClientBlogPage() {
         </p>
       </div>
       <div className="md:col-span-2 flex flex-col gap-4">
-        <div className="flex flex-col md:grid md:grid-cols-2 gap-5">
+        <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {content}
         </div>
         {pageCount >= totalRecords && (
