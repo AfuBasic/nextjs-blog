@@ -2,34 +2,25 @@
 import { BlogPost } from "@/components/ui/blogpost";
 import Link from "next/link";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { apiBaseUrl } from "@/utils/constants";
 import { useEffect, useState } from "react";
 import { InView, useInView } from "react-intersection-observer";
+import { apiService } from "@/lib/service";
 
-async function getBlogPosts({ pageParam }) {
-  const response = await fetch(`${apiBaseUrl}/posts?page=${pageParam}`, {
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization:
-        "Bearer 3|3RQwOo6YVLoJpdb5lu1H7B8bEH7JL4YirvtGrIUkf2fed752",
-    },
-  });
-  if (!response.ok) {
-    const errorBody = await response.json().catch(() => ({})); // try to read error body
-    throw new Error(
-      errorBody.message || `HTTP error! status: ${response.status}`
-    );
-  }
-  return response.json();
+async function getBlogPosts({ pageParam, queryKey }) {
+  const [, category] = queryKey;
+  const url = category?.trim()
+    ? `/posts/${category}?page=${pageParam}`
+    : `/posts?page=${pageParam}`;
+  const response = await apiService(url);
+  return response;
 }
 
-export default function ClientBlogPage() {
+export default function ClientBlogPage({ category }) {
   const { ref, inView } = useInView();
   const [pageCount, setPageCount] = useState(0);
   const { data, error, isLoading, isError, fetchNextPage, isFetchingNextPage } =
     useInfiniteQuery({
-      queryKey: ["posts"],
+      queryKey: ["posts", category],
       queryFn: getBlogPosts,
       initialPageParam: 1,
       getNextPageParam: (lastPage, allPage) => allPage.length + 1,

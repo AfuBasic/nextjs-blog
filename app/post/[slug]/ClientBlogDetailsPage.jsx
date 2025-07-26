@@ -1,6 +1,7 @@
 "use client";
 import { BlogPost } from "@/components/ui/blogpost";
-import { apiBaseUrl } from "@/utils/constants";
+import { apiBaseUrl } from "@/lib/constants";
+import { apiService } from "@/lib/service";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,46 +10,8 @@ import { FaCalendar, FaUser } from "react-icons/fa";
 import sanitizeHtml from "sanitize-html";
 
 async function getBlogPost(slug) {
-  const response = await fetch(`${apiBaseUrl}/post/${slug}`, {
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization:
-        "Bearer 3|3RQwOo6YVLoJpdb5lu1H7B8bEH7JL4YirvtGrIUkf2fed752",
-    },
-  });
-
-  if (!response.ok) {
-    const errorBody = await response.json().catch(() => ({})); // try to read error body
-    throw new Error(
-      errorBody.message || `HTTP error! status: ${response.status}`
-    );
-  }
-
-  return response.json();
-}
-
-async function getRelatedPosts(currentPostSlug) {
-  const response = await fetch(
-    `${apiBaseUrl}/related-posts/${currentPostSlug}`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization:
-          "Bearer 3|3RQwOo6YVLoJpdb5lu1H7B8bEH7JL4YirvtGrIUkf2fed752",
-      },
-    }
-  );
-
-  if (!response.ok) {
-    const errorBody = await response.json().catch(() => ({})); // try to read error body
-    throw new Error(
-      errorBody.message || `HTTP error! status: ${response.status}`
-    );
-  }
-
-  return response.json();
+  const response = await apiService(`/post/${slug}`);
+  return response;
 }
 
 export default function ClientBlogDetails() {
@@ -91,29 +54,31 @@ export default function ClientBlogDetails() {
       <div className="border-b">
         <p
           dangerouslySetInnerHTML={{ __html: cleanHtml }}
-          className="text-sm text-left md:text-justify pt-5 max-w-none prose"
+          className="text-sm text-left md:text-justify pt-5 max-w-none prose dark:prose-invert"
         ></p>
       </div>
-      <div className="mt-8">
-        <h3 className="text-2xl font-semibold">Read More Posts</h3>
+      {data.data.related_posts.length > 0 && (
+        <div className="mt-8">
+          <h3 className="text-2xl font-semibold">Read More Posts</h3>
 
-        <div className="flex flex-col gap-4 md:grid md:grid-cols-3 mt-5">
-          {data.data.related_posts.map((post, key) => {
-            return (
-              <Link key={key} href={`/post/${post.slug}`}>
-                <BlogPost
-                  postCategory={post.category_name}
-                  previewImage={post.preview_image_url}
-                  author={post.author}
-                  dated={post.post_date}
-                  title={post.title}
-                  excerpt={post.content}
-                />
-              </Link>
-            );
-          })}
+          <div className="flex flex-col gap-4 md:grid md:grid-cols-3 mt-5">
+            {data.data.related_posts.map((post, key) => {
+              return (
+                <Link key={key} href={`/post/${post.slug}`}>
+                  <BlogPost
+                    postCategory={post.category_name}
+                    previewImage={post.preview_image_url}
+                    author={post.author}
+                    dated={post.post_date}
+                    title={post.title}
+                    excerpt={post.content}
+                  />
+                </Link>
+              );
+            })}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
