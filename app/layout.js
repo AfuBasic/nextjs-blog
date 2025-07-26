@@ -36,8 +36,9 @@ export default function RootLayout({ children }) {
               <ThemeToggle />
             </span>
           </div>
-
-          <QueryProvider>{children}</QueryProvider>
+          <div className="min-h-screen">
+            <QueryProvider>{children}</QueryProvider>
+          </div>
           <div className="bg-stone-900 p-4 text-white text-center">
             &copy; Copyright 2025. All rights reserved
           </div>
