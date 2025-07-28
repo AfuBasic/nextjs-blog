@@ -6,8 +6,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
-async function getPostCategories() {
-  const response = await apiService("/categories");
+async function getPostCategories({ pageParam }) {
+  const response = await apiService(`/categories?page=${pageParam}`);
   return response;
 }
 
