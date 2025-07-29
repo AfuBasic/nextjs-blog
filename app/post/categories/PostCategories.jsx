@@ -36,8 +36,6 @@ export default function PostCategories() {
     }
   }, [inView]);
 
-  console.log(data);
-
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <p>Error: {error.message}</p>;
 
@@ -60,6 +58,13 @@ export default function PostCategories() {
         {content}
       </div>
       <p ref={ref}></p>
+      {isFetchingNextPage && (
+        <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="h-[200px] bg-gray- rounded animate-pulse"></div>
+          <div className="h-[200px] bg-gray-300 rounded animate-pulse"></div>
+          <div className="h-[200px] bg-gray-300 rounded animate-pulse"></div>
+        </div>
+      )}
     </div>
   );
 }

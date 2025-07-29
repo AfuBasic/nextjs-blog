@@ -77,13 +77,14 @@ export default function ClientBlogPage({ category }) {
         <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {content}
         </div>
-        {pageCount >= totalRecords && (
-          <div className="text-center text-stone-900 dark:text-gray-200">
-            No more content
+        <p ref={ref}></p>
+        {isFetchingNextPage && (
+          <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="h-[200px] bg-gray- rounded animate-pulse"></div>
+            <div className="h-[200px] bg-gray-300 rounded animate-pulse"></div>
+            <div className="h-[200px] bg-gray-300 rounded animate-pulse"></div>
           </div>
         )}
-        <p ref={ref}></p>
-        {isFetchingNextPage && <div>Loading...</div>}
       </div>
     </div>
   );
