@@ -5,6 +5,7 @@ import { ThemeToggle } from "./theme-toggle";
 import QueryProvider from "@/components/QueryProvider";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import Script from "next/script";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -21,6 +22,18 @@ const moonDance = Moon_Dance({
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <Script src={'https://www.googletagmanager.com/gtag/js?id=G-W12TNB88XJ'} strategy="afterInteractive"/>
+        <Script id="google-analytics" strategy="afterInteractive">
+        {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-W12TNB88XJ');
+        `}
+        </Script>
+      </head>
       <body
         className={`${inter.variable} ${moonDance.variable} antialiased transition-all duration-1000`}
       >
