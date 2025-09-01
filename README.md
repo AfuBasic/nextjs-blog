@@ -13,7 +13,7 @@ The system integrates **AI (GROQ)** to assist with blog post generation, making 
 - **Backend**: Laravel 12, Filament  
 - **Frontend**: Next.js (React)  
 - **AI**: GROQ API integration  
-- **Database**: MySQL / PostgreSQL  
+- **Database**: MySQL 
 
 ## Related Repositories
 - 👉 [Backend Repository](https://github.com/AfuBasic/laravel-blog)
