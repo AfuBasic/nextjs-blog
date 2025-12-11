@@ -67,10 +67,9 @@ export default function ClientBlogPage({ category }) {
           About AI Blog
         </h3>
         <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
-          This is a simple blog application built with Next.js and Tailwind CSS.
-          It features a dark mode toggle, responsive design, and a clean layout
-          for reading articles. The blog is designed to be user-friendly and
-          visually appealing, making it easy to navigate and read content.
+          Welcome to my Blog. Here, I write about my journey, my challenges and
+          how I solved them. Welcome to the front row seat of my growth. you can
+          send feedbacks to afutunde@gmail.com
         </p>
       </div>
       <div className="md:col-span-2 flex flex-col gap-4">
