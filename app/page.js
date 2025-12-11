@@ -1,7 +1,8 @@
 import ClientBlogPage from "./ClientBlogPage";
 
 export const metadata = {
-  title: "Welcome to AI Blog. Generating Blog content with AI",
+  title:
+    "Welcome to Afuwape Tunde's Blog. Generating Tech Blog content with AI",
 };
 
 export default function Blog({ searchParams }) {
