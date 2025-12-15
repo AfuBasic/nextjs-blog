@@ -6,6 +6,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "blogbackend.afuwapetunde.com",
       },
+      {
+        protocol: "http",
+        hostname: "localhost",
+      },
     ],
   },
 };
