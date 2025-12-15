@@ -23,9 +23,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <Script src={'https://www.googletagmanager.com/gtag/js?id=G-W12TNB88XJ'} strategy="afterInteractive"/>
+        <Script
+          src={"https://www.googletagmanager.com/gtag/js?id=G-W12TNB88XJ"}
+          strategy="afterInteractive"
+        />
         <Script id="google-analytics" strategy="afterInteractive">
-        {`
+          {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
@@ -44,11 +47,14 @@ export default function RootLayout({ children }) {
         >
           <div className="flex justify-between m-0 py-4 dark:bg-stone-900 border-b text-center bg-white text-black dark:text-white">
             <Link href="/">
-              <h3 className="text-4xl font-semibold ml-3">My AI Blog</h3>
+              <h3 className="text-4xl font-semibold ml-3">Blog</h3>
             </Link>
             <span className="pr-4 items-center flex gap-2">
               <Link href="/post/categories">
                 <Button variant="outline">Categories</Button>
+              </Link>
+              <Link href="https://afuwapetunde.com">
+                <Button variant="outline">Afuwape Tunde</Button>
               </Link>
               <ThemeToggle />
             </span>
